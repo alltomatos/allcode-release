@@ -1,0 +1,1902 @@
+{
+  "releases": [
+    {
+      "tag": "v1.27.4",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Correção de inicialização do AllCode",
+              "description": "O AllCode voltou a iniciar normalmente. O sincronizador de políticas de provedores do tenant agora é montado dentro do escopo do servidor, eliminando o erro de contexto que impedia a aplicação de carregar nas versões 1.27.1 a 1.27.3."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.27.3",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Desktop explica o bloqueio e avisa antes do fim do trial",
+              "description": "Quando a empresa entra em período de avaliação, o AllCode Desktop exibe uma faixa com os dias restantes e reforça o aviso nos últimos três dias. Se o trial expirar ou a empresa for suspensa durante o uso, o app passa a mostrar o motivo correto — período de avaliação expirado ou acesso da empresa suspenso — em vez do aviso genérico de sessão revogada, mantendo plano e dias restantes sempre sincronizados com o portal."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.27.1",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Plano gratuito do OpenCode funcionando de verdade",
+              "description": "O provedor OpenCode agora resolve a credencial ativa do OpenCode Console e envia o token, o header de organização e a identidade de CLI que o gateway gratuito exige. Os IDs de sessão e de requisição seguem o formato nativo e o par de headers de sessão vai sempre consistente, eliminando as rejeições FreeTierError."
+            },
+            {
+              "title": "Modelos gratuitos do OpenCode visíveis e selecionáveis",
+              "description": "Modelos gratuitos publicados pelo catálogo do OpenCode Console passam a aparecer no seletor mesmo quando o provedor não tem modelos pagos, e a lista de provedores deixa de esconder o OpenCode quando só há opções gratuitas."
+            },
+            {
+              "title": "Limite de uso comunicado sem travar a sessão",
+              "description": "Quando o provedor responde 429 com um retry-after longo (cota diária gratuita), a sessão deixa de ficar em estado de espera e mostra o erro real do provedor, com a mensagem de limite e o caminho para o OpenCode Go, sem fallback silencioso para outro provedor."
+            },
+            {
+              "title": "Turnos auxiliares compatíveis com o plano gratuito",
+              "description": "Geração de título e compactação passam a enviar o contrato de tools nativo exigido pelo gateway gratuito, em vez de um tool fictício, evitando falhas silenciosas nesses turnos."
+            },
+            {
+              "title": "Controle de Computador Accessibility-First e Worker de Alta Performance",
+              "description": "O módulo de Computer Use agora suporta inspeção semântica da árvore de acessibilidade do sistema operacional (Windows UIAutomation), permitindo ao agente interagir diretamente por identificadores estáveis [ref_N] com feedback visual pulsante na tela. O mecanismo de injeção de input foi migrado para um worker nativo persistente com aceleração Win32, reduzindo a latência de execução para menos de 35ms por ação e adicionando classificação semântica de entrega e retry seguro."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.27.0",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Troca de senha no próprio aplicativo",
+              "description": "O Desktop agora permite trocar a senha em um novo menu de conta, validando a senha atual e reportando erros localizados. Quando o administrador desativa a troca de senha, a opção some do menu."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.26.2",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Proteção e Sincronização Dinâmica no Desktop",
+              "description": "O AllCode Desktop sincroniza o status e as permissões ativas em segundo plano, ocultando ou bloqueando automaticamente abas e rotas restritas e reportando os dados de auditoria ao término de cada sessão de trabalho."
+            },
+            {
+              "title": "Estabilidade do Antigravity e WhatsApp Nativo",
+              "description": "Adicionado guard de inatividade para streaming SSE evitando travamentos silenciosos, otimização de compactação e modelos no Google Antigravity, e suporte a agregação e debouncing de mensagens no canal nativo de WhatsApp do AgentUI."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.26.1",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Melhorar com IA funciona no free tier do OpenCode",
+              "description": "O botão de melhoria de prompt passou a montar a requisição com o mesmo contrato de um turno de chat — agente da sessão, instruções do projeto e o conjunto real de ferramentas — porque o gateway do free tier só atende pedidos que parecem o CLI. Isso elimina o erro 429 (FreeUsageLimitError) ao melhorar o prompt com modelos gratuitos. Quando o limite é atingido de verdade, a falha aparece como mensagem localizada, sem repetições infinitas, e o prompt original é preservado. O app instalado só recebe esta correção após o novo release."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.26.0",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Rotinas controladas pelo chat",
+              "description": "A tool routine agora cria rotinas, consulta a saúde das execuções e reinicia rotinas travadas direto na conversa, com idempotência, metadados e auditoria. O reinício exige confirmação, respeita limite de tentativas e cooldown e usa a permissão separada routine_restart."
+            },
+            {
+              "title": "Agentes do AgentUI criados pelo chat",
+              "description": "A tool agentui lista, consulta e cria agentes com modelo, ferramentas e permissões, gravando no mesmo config global usado pela tela de Settings. O schema de agente ganhou os campos opcionais description e visibility."
+            },
+            {
+              "title": "Rotinas atualizam sem clicar em Atualizar status",
+              "description": "Os eventos schedule.created, schedule.updated e schedule.deleted passaram a ser emitidos pelo serviço de rotinas e invalidam a lista no cliente. Criação, edição, exclusão e toggle de enabled aparecem na hora, inclusive quando a mudança vem da tool routine no chat ou das rotas /api/schedule."
+            },
+            {
+              "title": "Sessões novas aparecem na hora na tela inicial",
+              "description": "A Home passou a registrar as consultas no mesmo cache do server sync que recebe os eventos; antes a lista ficava congelada até um reload completo. As sessões de canal do AgentUI continuam agrupadas em Agentes."
+            },
+            {
+              "title": "Servidor de desenvolvimento recarrega sozinho",
+              "description": "Em builds não empacotados, o servidor local roda direto dos fontes sob Bun e observa as pastas de allcode, core, schema, protocol e server. Salvar um arquivo reinicia o processo, libera a porta e o cliente reconecta sozinho, sem rebuild manual."
+            },
+            {
+              "title": "Free tier do OpenCode compatível no desktop",
+              "description": "O desktop passou a enviar a identidade de CLI reconhecida pelo gateway do OpenCode (User-Agent e headers de sessão e projeto), tenta novamente quando o modelo gratuito é recusado e não envia tool_choice none, que o free tier rejeita."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.25.1",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "AGY e AGY CLI de volta ao seletor de modelos",
+              "description": "Os provedores AGY e AGY CLI deixavam de aparecer no chat quando o app iniciava enquanto o catálogo de providers ainda estava carregando. A lista de provedores agora aguarda o boot dos plugins do catálogo por mais tempo, sem retornar uma lista parcial, e o app reduz a janela de cache para se recuperar automaticamente. As contas OAuth e as configurações existentes continuam válidas, sem necessidade de reconectar."
+            },
+            {
+              "title": "Melhorar prompt com IA completo e com erros claros",
+              "description": "O botão Melhorar prompt com IA passou a agregar todos os fragmentos da resposta no AGY e AGY CLI, em vez de exibir apenas o primeiro trecho, e a interromper com aviso quando o modelo atinge o limite de tokens ou devolve uma chamada de ferramenta. O envio não usa mais ferramentas desnecessárias, o relay do AgentRouter se recupera de processos órfãos e atualiza o próprio binário, e falhas de provedor agora mostram provedor, modelo e motivo em vez de uma pilha de erro."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.25.0",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Navegador embutido: erros claros, posição correta e navegação confiável",
+              "description": "O painel de navegador passou a validar as ações do agente e a devolver mensagens específicas para painel fechado, elemento fora da tela, endereço inválido, offline e timeout, sem expor respostas HTTP cruas. Falhas de carregamento aparecem na interface com opção de tentar novamente; voltar, avançar e recarregar só respondem depois que a navegação termina; referências de snapshot deixam de valer após qualquer navegação. O posicionamento também passou a considerar a escala do monitor, corrigindo o painel que ficava menor e deslocado em telas a 125% e 150%."
+            },
+            {
+              "title": "Home: sessões do AgentUI no grupo Agentes",
+              "description": "As conversas dos canais do AgentUI, guardadas no diretório central do agente, agora aparecem na tela inicial em um grupo próprio chamado Agentes em vez de serem descartadas pelo filtro de projetos. O diretório é resolvido uma vez por servidor e servidores antigos continuam funcionando sem a seção."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.24.1",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "AgentUI: aviso ao conectar WhatsApp com agente desativado",
+              "description": "O botão Conectar / Exibir QR Code agora responde na hora quando o agente está desativado, explicando que é preciso ativá-lo na aba Geral. Antes a conexão subia, o supervisor de canais encerrava a sessão segundos depois e o painel voltava para desconectado sem QR e sem motivo aparente."
+            },
+            {
+              "title": "Desenvolvimento: bun dev:local na raiz",
+              "description": "O comando de desenvolvimento do app desktop com o canal local (OPENCODE_CHANNEL=local) passou a existir também na raiz do workspace, junto de dev:desktop e dev:web, em vez de exigir a entrada em packages/desktop."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.24.0",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "AgentUI: WhatsApp Nativo (zapo) como modo explícito",
+              "description": "O canal de WhatsApp do agente separa dois modos: nativo (conexão direta com o WhatsApp Web via zapo-js, com pareamento por QR e sessão persistida em SQLite) e API externa (WAHA, Evolution, Z-API, izapia e demais gateways do waconector). A escolha fica na aba Canais, no campo Modo de conexão, e o agente reconecta sozinho após reiniciar o app."
+            },
+            {
+              "title": "AgentUI: ferramentas completas de WhatsApp para o agente",
+              "description": "Além de texto, o agente passou a enviar mídia (imagem, vídeo, áudio, documento, sticker), reações, botões de resposta rápida, botão de link, listas com seções, cobrança PIX e carrossel de cards. Também consulta histórico de conversas, lista grupos e participantes e administra grupos (criar, adicionar/remover/promover/rebaixar e gerar link de convite)."
+            },
+            {
+              "title": "AgentUI: biblioteca de mídia local para enviar fotos e arquivos",
+              "description": "Novo campo Pastas de mídia na aba Ferramentas define uma ou mais pastas do computador que o agente pode explorar. Ele lista subpastas e arquivos, busca por nome e envia a foto ou documento certo pelo WhatsApp — com acesso restrito às pastas configuradas (sem sair delas por caminho relativo ou atalho)."
+            },
+            {
+              "title": "AgentUI: carrossel de cards no WhatsApp",
+              "description": "O envio de carrossel agora sobe uma imagem por card e monta o payload que o WhatsApp realmente renderiza, com validação de quantidade de cards, texto e botões. Cards sem mídia passam a ser recusados com erro claro em vez de virar mensagem não suportada."
+            },
+            {
+              "title": "AgentUI: grupos e participantes autorizados",
+              "description": "É possível listar os grupos da conta conectada e marcar em quais o agente pode responder, além de escolher quais participantes de cada grupo têm permissão para interagir. Grupos onde o agente é administrador aparecem destacados."
+            },
+            {
+              "title": "AgentUI: menção, citação e mensagens diretas",
+              "description": "Novos controles ligam e desligam respostas em conversas diretas e em grupos, com a opção de responder apenas quando o agente for mencionado (@) ou quando a mensagem citar algo que ele enviou. Menções endereçadas por LID também são reconhecidas."
+            },
+            {
+              "title": "Configuração: allcode.jsonc como arquivo oficial",
+              "description": "O projeto passa a ler e gravar allcode.jsonc (e allcode.json) no lugar de opencode.jsonc. Arquivos antigos continuam sendo lidos e são migrados automaticamente, sem perda de configuração."
+            },
+            {
+              "title": "Desktop: isolamento entre desenvolvimento e produção",
+              "description": "A build de desenvolvimento usa configuração, banco de dados (allcode-dev.db), bancos por projeto e sessão de WhatsApp próprios, então testar em dev não altera nada da instalação em produção."
+            },
+            {
+              "title": "Correções: destinatário, modelo, sessão e inicialização",
+              "description": "Mensagens e mídias enviadas pelo agente vão sempre para a conversa que o acionou (antes podiam cair no próprio número), e o envio por URL passou a inferir o mimetype do arquivo. O modelo é reprocessado quando o catálogo ainda está sincronizando, o diretório de sessão não-absoluto deixou de derrubar o turno, o diagnóstico de canais reconhece o WhatsApp nativo e a inicialização do app ganhou mais tolerância a boots lentos. Arquivos de config legados são migrados para allcode.jsonc antes de qualquer gravação, então valores antigos ainda podem ser limpos."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.23.0",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Chat: Melhoria de Prompt com IA",
+              "description": "O compositor ganhou um botão de melhoria de prompt que reescreve o rascunho com base no histórico da conversa, na memória do projeto e em um modelo configurável, preservando comandos e menções."
+            },
+            {
+              "title": "Chat: Envio Bloqueado Durante a Melhoria",
+              "description": "Enquanto a melhoria está em andamento, o botão de enviar fica desativado com spinner, pulsação, tooltip e aria-busy, e os atalhos de clique e Enter aguardam a conclusão para evitar envios parciais."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.22.1",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "E-mail: Botões de Provedor e Novo Modal de Contas",
+              "description": "O modal de contas de e-mail agora tem botões de provedor (Gmail, Outlook, cPanel, Speedmail e Zimbra) que preenchem os servidores automaticamente nos provedores conhecidos e deixam os campos livres nos servidores personalizados, com dicas específicas para cada um."
+            },
+            {
+              "title": "E-mail: Edição, Remoção e Opções Avançadas",
+              "description": "Contas conectadas podem ser editadas e removidas com confirmação e aviso de resultado, expõem o identificador e a pasta de enviados em opções avançadas, validam o servidor SMTP antes de salvar e o teste de conexão usa as mesmas opções de TLS do servidor MCP em execução."
+            },
+            {
+              "title": "Desktop: Manutenção de Banco sem Travar o Sidecar",
+              "description": "A manutenção do banco agora usa checkpoint passivo e exclusões em lotes, executa o vacuum pendente antes de iniciar o sidecar e amplia o tempo de espera de lock, evitando travamentos e quedas do servidor durante a limpeza."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.91",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "AgentUI: Gestão Granular de Participantes por Grupo no WhatsApp",
+              "description": "Adicionado modal dedicado para seleção de participantes autorizados diretamente dos grupos da Izapia, com controle de escopo individual por grupo ou global."
+            },
+            {
+              "title": "AgentUI: Resposta Apenas por Menção (@) em Grupos",
+              "description": "Adicionado toggle para restringir respostas do bot em grupos apenas quando mencionado diretamente ou citado via quote."
+            },
+            {
+              "title": "UI/UX: Refinamento Visual e Limpeza da Tela de Canais",
+              "description": "Alinhamento com diretrizes UI/UX Pro Max, removendo containers e bordas excessivas para uma experiência mais limpa e fluida."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.90",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Rotinas: Limpeza e Correção de Erros de Execuções Anteriores",
+              "description": "Corrigida persistência do estado da rotina para limpar lastError ao concluir com sucesso e ajustar a interface para não exibir mensagens de erro anteriores em execuções concluídas."
+            },
+            {
+              "title": "Rotinas: Timeout Estendido e Execução Resiliente",
+              "description": "Timeout padrão ajustado para 30 minutos em rotinas com instruções analíticas complexas e sincronização assíncrona."
+            },
+            {
+              "title": "Lembretes e Notificações: WhatsApp e Toasts no Desktop",
+              "description": "Ativado dispatcher multi-canal para envio de lembretes via Izapia/WhatsApp e toasts clicáveis na interface ao término de qualquer sessão ou rotina."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.89",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "LLM: Alinhamento de Headers para Camada Gratuita do OpenCode",
+              "description": "Adicionado header obrigatório x-opencode-session-id e padronizado identificador x-opencode-client para prevenir erro 403 FreeTierError no provedor OpenCode."
+            },
+            {
+              "title": "Plataforma Web: Notificações em Toast e Paridade de Recursos",
+              "description": "Adicionado suporte a toasts informativos para conclusões de sessão e erros de execução, melhorias em rotinas com timeout estendido e suporte a lembretes por múltiplos canais."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.88",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Timeline: Visualização e Zoom de Imagens Geradas",
+              "description": "Adicionada exibição direta de preview de imagens (SVG, PNG, JPG, WebP, BMP, etc.) na timeline ao serem criadas por ferramentas de escrita, com suporte a ampliação em modal em tela cheia ao clicar na imagem ou em tags <img> no Markdown."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.87",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Arquitetura: Descontinuação e Remoção Completa do Batuta",
+              "description": "Removido todo o código legado e endpoints do Batuta (frontend, rotas HTTP, serviços e schemas de configuração), preservando e desacoplando os componentes essenciais compartilhados como ModelPickerV2."
+            },
+            {
+              "title": "Combos e ModelPickerV2: Suporte Completo no AgentUI e Persistência de Provedor",
+              "description": "Integrado suporte unificado a Combos no ModelPickerV2 (AgentUI, Rotinas e Memória) espelhando a experiência do Chat, com correção da retenção do provedor ao editar combos e resolução resiliente no backend."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.86",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Navegação: Renomeação da Aba 'Code' para 'Chat' com Ícone de Conversa",
+              "description": "Atualizado o botão de navegação principal da barra lateral do app de 'Code' para 'Chat' com ícone representativo de conversa, refletindo com mais precisão a área principal de chat e sessões interativas com os agentes."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.85",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "AgentUI Studio: Redesign Completo em Abas e Gestão Aprimorada de Canais (UI/UX Pro Max)",
+              "description": "Implementada a nova arquitetura do AgentUI Studio baseada no UI/UX Pro Max com layout responsivo de largura ampla (max 1240px) dividido em abas modulares (Geral, Personalidade & IA, Canais, Ferramentas, Conhecimento). Na aba de Canais, incorporados botões de atualização em tempo real para 'Buscar Sessões ⟳' e 'Buscar Grupos ⟳' com checkboxes intuitivos e contagem de participantes, além de cards modernos para Webhook, Telegram e Diagnóstico Rápido."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.84",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "AgentUI: Redesign em Abas Horizontais (UI/UX Pro Max)",
+              "description": "Reformulado o formulário de criação e edição de agentes para uma experiência moderna e organizada em abas de largura completa (Geral, Personalidade & IA, Canais, Ferramentas, Conhecimento), substituindo a antiga coluna lateral estreita por seções bem espaçadas, cartões semânticos e formulários responsivos."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.83",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "AgentUI: Recuperação e Visibilidade de Erros de LLM/Stream e Atualização Dinâmica de Permissões",
+              "description": "Corrigido o tratamento de resposta no AgentUI para capturar mensagens de erro do provedor/modelo (ex.: 'Verify your account to continue', erros de quota ou autenticação), evitando respostas em branco silenciosas ('(sem resposta)'); sincronização automática de permissões atualizadas (MCPs e ferramentas) para sessões de chat já existentes; e teste aprofundado com getModel e InstanceRef no diagnóstico do modelo."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.82",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Correção Crítica de Inicialização & Ciclo de Módulos (AgentUI/WhatsApp)",
+              "description": "Corrigida dependência circular entre os módulos AgentUI e WhatsApp que causava falha de desreferenciamento em 'node.kind' durante a inicialização do servidor local no Desktop Electron. Adicionada proteção contra propriedades indefinidas em conexões remotas SSH/WSL e validação de fontes RAG do AgentUI."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.81",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "AgentUI: Ferramenta de Diagnóstico & Teste de Canais e Conexões",
+              "description": "Adicionado endpoint de diagnóstico ('GET /agentui/:id/diagnose') e modal interativo no AgentUI para testar a saúde de ponta a ponta dos canais (WhatsApp via waconector, Telegram via getMe), disponibilidade do modelo/provedor LLM configurado e acessibilidade do diretório de sessões, permitindo identificar e testar imediatamente por que um agente não está respondendo após reinicializações do OpenCode."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.80",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "AgentUI: Toggle de Acesso ao Terminal e Comandos (Bash)",
+              "description": "Adicionada opção configurável na aba Ferramentas do AgentUI para conceder permissão de execução de comandos no terminal (bash). Permite que os agentes executem scripts, comandos do sistema e automações de linha de comando sob demanda."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.79",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "AgentUI: Acesso a Arquivos e Documentos Locais (Filesystem)",
+              "description": "Adicionado suporte nativo e permissão configurável de acesso a arquivos e documentos no AgentUI. Quando ativado na aba Ferramentas, o agente ganha acesso às ferramentas de leitura, criação, edição e pesquisa de arquivos (read, write, edit, glob, grep), permitindo manipular documentos locais e projetos com isolamento por padrão."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.78",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "AgentUI: Centralização de Sessões de WhatsApp e Telegram em Projeto Dedicado",
+              "description": "Implementado diretório e projeto centralizador exclusivo para o AgentUI (~/.opencode/projects/agentui). Todas as conversas automáticas e sessões recebidas via WhatsApp e Telegram agora são criadas e organizadas centralizadamente nesse projeto por padrão, evitando poluir repositórios de código com sessões de mensageria, com opção de selecionar um projeto customizado se desejado."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.77",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "AgentUI & WhatsApp: Suporte a Documentos com Legenda (Caption) e Formatos Office",
+              "description": "Corrigida a leitura de mensagens no WhatsApp enviadas com arquivos/documentos contendo legenda (caption), garantindo que o texto explicativo acompanhe o anexo; suporte e mapeamento automático de extensões para apresentações PowerPoint (.pptx), planilhas Excel (.xlsx) e documentos Word (.docx)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.76",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Sincronização de Release e Otimizações de Memória & Manutenção",
+              "description": "Consolidação e sincronização entre os canais de desenvolvimento e produção com melhorias no diagnóstico do banco de dados SQLite e provisionamento de ambiente em runtime."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.75",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Python 3.12 Vendorizado Multiplataforma (Windows, macOS e Linux)",
+              "description": "Adicionado provisionamento automático e transparente de ambiente portable Python 3.12 (astral-sh standalone) sem dependência de instalação prévia no SO nem privilégios de administrador. Injetado dinamicamente no PATH dos shells e terminais do OpenCode para garantir disponibilidade imediata para agents, skills e scripts."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.74",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Manutenção & Feedback de Status: Diagnóstico Preciso de Saúde, Histórico de Execução e Síntese de Memória Prévia",
+              "description": "Refinados os critérios de avaliação de saúde do banco de dados para evitar falso-positivo de 'Manutenção necessária' após otimizações bem-sucedidas. Adicionado histórico visual da última manutenção com data/hora, bytes recuperados e eventos limpos. Adicionado badge de estado 'Saudável' e acionamento de síntese em background antes do ciclo de manutenção e reinicialização."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.73",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Detecção Fidedigna de Contas Pro vs Gratuito via loadCodeAssist (Paridade OmniRoute)",
+              "description": "Implementada consulta oficial ao endpoint loadCodeAssist do Google Cloud Code para extração do paidTier (g1-pro-tier, g1-ultra-tier) seguindo a arquitetura de referência do OmniRoute. Contas Pro reais com Google AI Pro e contas gratuitas agora são classificadas com precisão em ambos os blocos AGY e AGY CLI."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.72",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Sistema de Memória & Manutenção: Pipeline de Memória antes do Expurgo, Retenção Configurável e VACUUM Automático",
+              "description": "Adicionada configuração de período de retenção de sessões nas configurações de Memória (7d, 15d, 30d, 60d, 90d; padrão 30 dias). Implementado pipeline seguro na rotina periódica e na manutenção: antes de expurgar uma sessão do banco de dados, ela é obrigatoriamente sintetizada em arquivo Markdown (.md) no repositório de memórias do projeto. Implementada execução automática de VACUUM com truncate de WAL quando o banco possui páginas livres acumuladas, recuperando gigabytes de espaço físico em disco."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.71",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Combos com Prioridade + Round-Robin e Monitoramento de Saúde das Contas (Health/Cooldown 429)",
+              "description": "Adicionado suporte nativo à estratégia 'Prioridade + Round-Robin' no sistema de combos com configuração visual de Tiers por modelo. Implementado rastreamento em tempo real de saúde das contas com tag interativa 'Cooldown (429)' e ação de reset instantâneo. Corrigida a identificação indevida de contas gratuitas como Pro no provedor AGY."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.70",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Página Inicial de Sessões: Layout Amplo, Grade/Lista, Cards com Métricas e Live Working Status",
+              "description": "Expandido o aproveitamento da página de sessões para largura máxima fluida (max-w-7xl). Adicionado alternador entre visualização em Grade (Grid) e Lista (List) com persistência em localStorage. Implementados novos cards detalhados contendo resumo de diffs (+adições/-remoções), contagem de arquivos, modelo utilizado, carimbos relativos de tempo e indicador ativo em tempo real de agente trabalhando. Corrigida a indexação imediata de novas sessões no projeto e na tela inicial."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.69",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Manutenção Avançada: Badge Isolado na Titlebar, Expurgo de Sessões Antigas e Manutenção Profunda com Reinício",
+              "description": "Aprimorado o alerta de manutenção na barra de título para um botão/pílula destacado com animação de pulso e acesso direto. Adicionado suporte a expurgo automático de sessões antigas (> 30 dias), compactação de eventos de streaming intermediários, execução de VACUUM completo e ação de 'Manutenção completa e reiniciar' com fechamento do servidor e reinício limpo do app. Melhorada a sincronização periódica de memória automática sem bloqueio de sessões filhas."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.68",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Sistema & Agentes: Painel de Manutenção, Indicador Visual e Tool Nativa de Manutenção",
+              "description": "Adicionado suporte completo a manutenção do banco de dados SQLite (opencode.db) e WAL. Inclui indicador visual dinâmico na barra de título (titlebar) ao atingir os limites recomendados, painel dedicado em Configurações > Geral para inspeção de métricas (tamanho do DB, WAL, contagem de eventos) com otimização manual, e nova ferramenta nativa ('tool/maintenance') para os agentes inspecionarem o status e executarem otimizações autonomamente."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.67",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "AgentUI & WhatsApp: Melhorias de UX no Webhook, Cópia em 1 Clique e Ajustes de Layout",
+              "description": "Campos de entrada de Webhook URL e Secret agora ocupam 100% da largura útil com suporte a cópia em 1 clique e feedback visual via toast; quebra de linha inteligente para URLs longas; e persistência confiável do host Tailscale/Funnel no AgentUI."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.66",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "AgentUI & WhatsApp: Filtro de Remetentes Autorizados, Persistência de Host e Redesign",
+              "description": "Adicionado suporte para 'allowedSenders' (Remetentes Permitidos) no canal WhatsApp, permitindo restringir o agente para responder estritamente a números específicos em grupos ou privado; persistência automática da URL do Tailscale/Funnel nas configurações do agente ao salvar; melhorias visuais de contraste (WCAG AA), largura total e cópia com 1 clique (com toast de confirmação) para Webhook URL e Secret, agrupamento de sessões/grupos em cartões e suporte aprimorado no Tailscale Funnel com detecção de link de aprovação para novas máquinas."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.65",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Skills: Extração e Instalação Automática de Skills Embarcadas em Máquinas Novas",
+              "description": "Corrigida a resolução do diretório default-skills empacotado no Electron Desktop (process.resourcesPath). Agora, em instalações limpas ou novos computadores, todas as skills embutidas do fork Alltomatos são extraídas e provisionadas automaticamente para ~/.opencode/skills na primeira inicialização, garantindo disponibilidade imediata de todas as skills sem necessidade de download manual."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.64",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "AgentUI & WhatsApp: Opções de Webhook Tailscale Interno e Tailscale Funnel Público",
+              "description": "Adicionado suporte nativo para alternar a URL base de webhook do WhatsApp entre o IP interno do Tailscale (para ambientes onde a VPS do provedor está na mesma Tailnet) e o Tailscale Funnel com HTTPS público oficial (permitindo que provedores externos alcancem o webhook com segurança). Corrigido o reconciler de bots do Telegram no AgentUI com fallback para a configuração global quando executado fora do escopo de instância."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.63",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Agenda & Lembretes: Novo Design Visual e Cores Semânticas por Canal",
+              "description": "Design visual moderno para a Agenda e Lembretes (/agenda): cores semânticas vibrantes com badges luminosos para cada canal (WhatsApp em esmeralda, Desktop em ciano/sky, AgentUI em roxo/índigo e Telegram em ciano), grade mensal polida com destaque visual aprimorado para o dia atual e horários tabulares mono, agrupamento cronológico inteligente no Modo Lista (Hoje, Amanhã, datas futuras), e controles de cabeçalho refinados com ícones vetoriais nativos."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.62",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Skills de Engenharia: Protocolo de Segurança e Auditoria Ofensiva no /developer",
+              "description": "Atualizado o pipeline oficial de governança técnica do /developer com portão duplo obrigatório (QA Funcional via /qa-analyst e Auditoria de Segurança E2E com testes negativos *.spec.sec.ts via /secure-e2e). Aprimorada a skill /secure-e2e com mentalidade de atacante (White-Hat), threat modeling, rate limiting e blindagem preventiva."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.61",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Agenda & Lembretes: Calendário em Grid, Lista e Memória Contínua no AgentUI",
+              "description": "Adicionada a página dedicada de Agenda (/agenda) acessível acima de Mídia na barra lateral, com visualização dual em Grid (Calendário Mensal) e Lista (Linha do Tempo). Toggles no AgentUI para controle granular de Agenda (reminder) e Memória Contínua (memory_save/memory_search), permitindo aos agentes de canais (WhatsApp/Telegram) agendar compromissos e reter contexto sem sobrecarregar o histórico."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.60",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "MCPmail: Estabilidade TLS 1.2 para Speedmail e resiliência de rotinas",
+              "description": "Forçado TLS 1.2 no handshake IMAP/SMTP para contas Speedmail e retries resilientes, eliminando timeouts de conexão com servidores corporativos. Adicionadas permissões automáticas para ferramentas de rotina e lembretes em agentes com rotinas habilitadas."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.59",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "MCPmail & Gemini: Resiliência IMAP e compatibilidade de schemas",
+              "description": "Adicionado mecanismo de retry exponencial com timeouts de conexão no MCPmail para recuperar instabilidades e conexões resetadas (ECONNRESET) em servidores de email corporativos. Corrigida a sanitização de schemas de ferramentas (enum/const booleanos) no protocolo Gemini para evitar erros de validação do Google Generative AI."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.58",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "AgentUI: Suporte completo a áudio e seleção de modelos com voz",
+              "description": "Habilitado suporte multimodal a áudio nos modelos Gemini/Antigravity e combos. Adicionado filtro no seletor de modelos do AgentUI para identificar e selecionar modelos capazes de ouvir áudio. Mídias e anexos recebidos no WhatsApp agora são armazenados na pasta temporária do sistema, evitando poluir o disco local permanentemente."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.57",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Google Antigravity: Suporte aos modelos Gemini 3.8 Flash",
+              "description": "Adicionado suporte nativo e fallbacks para os modelos Gemini 3.8 Flash (High, Medium e Low) no provedor Google Antigravity e na interface."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.53",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Rotinas: Configuração de Tempo Limite (Timeout) e Preservação de Sessão",
+              "description": "Adicionada a configuração de tempo limite diretamente no formulário de rotinas (com padrão estendido para 20 minutos). Além disso, o sessionId de execuções de rotinas agora é preservado no banco mesmo se houver timeout, permitindo sempre visualizar o histórico e o chat da rotina pelo card."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.50",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "mcpmail: Salvar cópia na pasta Enviados via IMAP e suporte a Anexos no envio",
+              "description": "Ao enviar emails com mcpmail (mail_send_message, mail_reply_message, mail_forward_message), uma cópia MIME RFC822 é gravada automaticamente na pasta de itens enviados via IMAP APPEND com a flag \\Seen. Também adicionado suporte a envio de anexos via base64 ou caminho local."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.49",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Correção de URL da API Izapia e Envio de Respostas no WhatsApp",
+              "description": "Corrigido o endpoint base do Izapia para api.izapia.com e adicionado fallback de sessão ativa para garantir o envio e entrega de respostas no WhatsApp."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.48",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Integração Bidirecional AgentUI & Rotinas, Debounce e Mídias no WhatsApp",
+              "description": "Adicionada integração bidirecional entre AgentUI e Rotinas: rotinas podem acionar agentes customizados e agentes podem consultar/executar rotinas. No canal do WhatsApp, foi implementada janela de 7s para agrupar mensagens sequenciais, deduplicação de webhooks e suporte completo a imagens, áudios e documentos (PDF, DOCX, XLSX) para modelos multimodais."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.47",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "URL Limpa para Webhooks e Agentes Globais no AgentUI",
+              "description": "Removido o parâmetro directory da URL pública de webhook do WhatsApp, gerando uma URL limpa e segura para gateways externos. O salvamento e execução dos canais WhatsApp e Telegram agora suportam fallback automático para o diretório padrão da instância quando nenhum projeto específico estiver associado."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.46",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Rotina Automática de Sincronização de Memória e Configurações de Intervalo",
+              "description": "Implementada rotina periódica em segundo plano para sintetização automática de memórias de novas sessões com deduplicação inteligente. Adicionadas opções de ativação e seleção de intervalo (1h, 2h, 6h, 12h, 24h) nas Configurações de Memória."
+            },
+            {
+              "title": "Exibição Clara de Skills Acionadas no Chat",
+              "description": "Atualizada a exibição de chamadas da ferramenta de skill na timeline de mensagens para indicar claramente o acionamento (ex: 'Skill acionada: Opencode-Fork-Expert')."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.45",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Correção do Ícone da Bandeja do Sistema no Windows",
+              "description": "Incluídos recursos de ícones no empacotamento do aplicativo desktop e implementada resolução robusta de caminhos com fallbacks (.ico e .png) para garantir a exibição do ícone na bandeja do sistema."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.44",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Prompt do Sistema Personalizado Global e Suporte a Ações de Rotinas AgentUI",
+              "description": "Adicionada opção nas Configurações Gerais para definir instruções globais personalizadas de prompt de sistema enviadas em cada mensagem. Incluído suporte a rotinas automatizadas com chamadas diretas a agentes AgentUI e ferramentas integradas de agendamento."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.43",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Correção de Interrupção Imediata no Envio de Mensagens e Melhorias no Visualizador de Rotinas",
+              "description": "Corrigido gatilho indevido no input de prompt que interrompia prematuramente os modelos ao submeter mensagens. Adicionado suporte a visualização em Grade ou Lista na listagem de rotinas com memorização de preferência e identificadores visuais dos modelos."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.40",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Renomeação de Servidores e Reflexo Instantâneo no Sidebar",
+              "description": "Adicionada a opção 'Renomear' no menu de servidores (incluindo conexões SSH, HTTP e Tailscale) nas Configurações e no menu contextual do Sidebar de Projetos, com persistência e atualização reativa imediata. Todos os modais de adicionar servidor agora contam com campo padronizado para nome de exibição."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.39",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Resolução de Modelo Padrão na Memória e Envio de Anexos no MCPMail",
+              "description": "O sistema de memória agora adota automaticamente o modelo padrão do sistema/chat (incluindo combos e modelos conectados) quando não configurado explicitamente, além de suporte a escopos (projeto/global) e busca filtrada. O MCPMail recebeu suporte completo a envio, resposta e encaminhamento com anexos (locais ou base64)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.38",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Estabilidade e Auto-Refresh nos Provedores AGY e AGY CLI",
+              "description": "Implementada resolução dinâmica de tokens vivos, refresh proativo contínuo em background, recuperação robusta contra erros 401/403 com failover automático e preservação estrita do refresh token do Google."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.37",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Sistema de Memória Lateral com Subabas e Backfill Automático",
+              "description": "Aba nativa de memória integrada ao painel lateral ao lado do Contexto, com subabas de Sessão/Projeto e Global, busca em tempo real, badges visuais semânticos para decisões e fatos, motor de síntese com fallback inteligente multi-provedor (AGY/OpenRouter/Zen/Heurístico) e ação de backfill retroativo de sessões passadas."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.36",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Fallback Seguro de Rotas e Identidade Visual da Marca",
+              "description": "Auto-recuperação e fallback seguro contra rotas corrompidas ou inválidas na inicialização do app, além de sincronização completa dos ícones de desktop, favicons e logotipo da marca."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.33",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Provedor Combos no Chat e Filtro de Provedores Conectados",
+              "description": "Injeção direta do provedor Combos e de seus modelos criados no modelo de seleção do prompt, além de filtragem estrita de provedores não configurados no chat de qualquer projeto."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.32",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Sincronização Perfeita de Credenciais e Combos no Chat",
+              "description": "Integração do serviço de credenciais SQLite com o catálogo do chat para exibir os provedores AGY, AGY CLI, Omniroute e a categoria Combos em qualquer projeto."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.31",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Integração Direta de Combos no Chat",
+              "description": "Combos cadastrados agora aparecem automaticamente no seletor de modelos do prompt sob a categoria Combos, com suporte a resolução dinâmica e failover em tempo real."
+            },
+            {
+              "title": "Filtro Estrito de Provedores Conectados",
+              "description": "O menu de seleção do chat agora exibe exclusivamente provedores com credenciais/contas ativas e combos configurados."
+            },
+            {
+              "title": "Monitoramento de Cota Diferenciado para AGY e AGY CLI",
+              "description": "Consulta de baldes independentes para o perfil IDE (fetchAvailableModels) e CLI (retrieveUserQuota), refletindo as cotas reais de cada pool."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.30",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Aprimoramento do Provedor AGY (Google Antigravity)",
+              "description": "Alinhamento do cliente OAuth, User-Agent e envelope de chamada com o 9router, eliminando restrições de licença corporativa (#3501) e suportando contas pessoais e Pro."
+            },
+            {
+              "title": "Correção de Seleção de Provedores na UI",
+              "description": "Tratamento defensivo para evitar TypeError ao abrir o modal de conexão de novos provedores e detecção dinâmica de plataforma no onboarding."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.29",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Assistente de IA Especialista em Combos",
+              "description": "Criação inteligente de combos por linguagem natural, recomendando e orquestrando hierarquias de modelos e failover com base nos provedores conectados."
+            },
+            {
+              "title": "Monitoramento de Cota e Tier em Tempo Real",
+              "description": "Exibição de tags de plano (Pro / Gratuito) e porcentagem em tempo real ao lado de cada conta, além de modal detalhado de cota e tempo de renovação por modelo."
+            },
+            {
+              "title": "Melhorias de Seletor de Modelos em Combos",
+              "description": "Sincronização dos provedores com conexões OAuth e integração direta de modelos de múltiplos provedores conectados."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.28",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Suporte a OAuth em servidores remotos",
+              "description": "Adicionado campo para colar a URL de retorno ou código de autorização durante o fluxo OAuth (loopback), com extração automática do token e relay para hosts remotos/VPS."
+            },
+            {
+              "title": "Correção no Kilo Gateway",
+              "description": "Corrigido bug onde o Kilo Gateway continuava listado em provedores conectados mesmo após a desconexão."
+            },
+            {
+              "title": "Simplificação do Kiro",
+              "description": "Mantido exclusivamente o método AWS Builder ID para conexão com o provedor Kiro, indo direto ao fluxo de login."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.27",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Correção: fluxo de conexão do Kiro",
+              "description": "O login do Kiro (Builder ID / IAM Identity Center) estava sempre falhando com \"Device authorization failed: 400\" — o app não reconhecia a resposta padrão do Google durante a espera de aprovação. Kiro agora conecta e conversa normalmente, com múltiplas contas e a janela de login isolada (sem reaproveitar sessão de outra conta)."
+            },
+            {
+              "title": "Removido: Antigravity IDE (mantido só o CLI)",
+              "description": "O perfil \"AGY\" (IDE) exigia vincular manualmente um projeto Google Cloud com licença paga do Gemini Code Assist — uma exigência do próprio Google, sem contorno possível. O AGY CLI cobre os mesmos modelos sem essa exigência, então o perfil IDE foi removido para simplificar."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.26",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Correção: chat funcionando com Google Antigravity (IDE e CLI)",
+              "description": "As contas Google Antigravity conectadas agora conversam de verdade — antes a chamada real caía num endpoint que não existe no Google."
+            },
+            {
+              "title": "Proteção de cota e rotação automática de contas",
+              "description": "Uma conta Google Antigravity é pausada automaticamente antes de esgotar a cota (a partir de 95% de uso) ou ao receber um erro real de limite, e a próxima conta conectada assume no lugar dela."
+            },
+            {
+              "title": "Modelos do Kiro disponíveis para conexão",
+              "description": "Os modelos reais do Kiro (Claude Sonnet 5/4.5, Haiku 4.5, DeepSeek, GLM-5, GPT-5.6 e outros) já aparecem no seletor de provedores — a conversa em si ainda depende de trabalho adicional."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.25",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Melhoria: barra lateral com layout vertical e distribuição de espaço",
+              "description": "As abas do menu lateral (Code, Batuta, Agentes, Rotinas) agora exibem o ícone centralizado acima do nome e aproveitam 100% da largura disponível. A barra quando recolhida também traz acesso direto por ícone vertical com tooltip."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.24",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Novo: conectar email direto pelo app (mcpmail)",
+              "description": "Configurações → MCP → MailMCP agora abre uma tela dedicada para adicionar uma conta de email (host/porta/usuário/senha de app, com SMTP opcional) sem precisar instalar nada nem editar arquivos manualmente. Ao salvar, o app registra automaticamente o servidor mcpmail (vendorizado no próprio opencode) e as ferramentas de email ficam disponíveis nas Rotinas."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.23",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Corrigido: providers conectados sumindo (v1.21.22)",
+              "description": "A correção anterior isolava o diretório de dados inteiro por canal, o que também isolava sem querer o auth.json (credenciais dos providers), fazendo o app mostrar só o catálogo padrão do opencode zen. Agora só o banco de projetos é isolado por canal — providers, config e cache continuam compartilhados normalmente."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.22",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Corrigido: projetos do dev aparecendo no prod",
+              "description": "O registro de projetos (banco de dados local) era compartilhado entre os canais dev/beta/prod, fazendo qualquer cliente pareado — incluindo o app mobile — mostrar projetos abertos em outro canal. Agora cada canal mantém seu próprio banco de projetos, isolado dos demais."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.21",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Corrigido: conexão MCP do OmniRoute falhando",
+              "description": "O app tentava conectar no endpoint de SSE do OmniRoute usando o protocolo Streamable HTTP, o que sempre falhava antes de cair pro modo SSE. Agora usa direto o endpoint correto do Streamable HTTP, conectando de primeira."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.20",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Navegação e abertura de telas ultrarrápidas",
+              "description": "Adicionado índice composto no banco SQLite para acelerar o carregamento de diretórios e histórico de sessões. Otimizada a transição da timeline de mensagens eliminando engasgos de renderização e forced reflows."
+            },
+            {
+              "title": "Inicialização imediata do app desktop",
+              "description": "Desacoplamento da checagem inicial do subsistema WSL da tela de splash e adiamento de limpezas pesadas em disco no boot, liberando a interface instantaneamente."
+            },
+            {
+              "title": "Rotinas: timeout configurável e executor MCP direto",
+              "description": "As rotinas agendadas agora possuem suporte a timeout e encerramento automático em caso de travamento de comandos shell ou ferramentas MCP, além de execução direta e determinística de ações MCP sem abrir sessões desnecessárias."
+            },
+            {
+              "title": "Otimização de descoberta de arquivos em projetos",
+              "description": "Busca de favicons e ícones de projeto agora ignora automaticamente node_modules, pastas de build (.turbo, dist, build) e .git, reduzindo drasticamente acessos a disco."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.19",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Rotinas: tarefas que rodam sozinhas",
+              "description": "Nova seção própria no sidebar (não mais em Configurações) pra criar rotinas em linguagem natural: quando disparar (todo dia em um ou mais horários, a cada X minutos, ou manual), o que fazer (uma instrução livre, sem precisar saber cron), e quais ferramentas conectadas (MCP) ela pode usar. Acompanhe o status da última execução e rode qualquer rotina na hora direto pela tela."
+            },
+            {
+              "title": "Rotinas sobrevivem ao app fechado",
+              "description": "\"Configurações > Servidor\" ganhou o comando pra instalar o opencode como serviço persistente de login no Windows, macOS e Linux — assim as rotinas continuam disparando mesmo com o app desktop fechado."
+            },
+            {
+              "title": "Métrica de tokens por segundo no dashboard",
+              "description": "O dashboard de KPIs agora mostra a taxa de tokens de saída por segundo, além das métricas já existentes."
+            },
+            {
+              "title": "Ajustes de branching, worktree e consistência visual",
+              "description": "Pequenos ajustes de UI ligados às epics de Batuta, Mobile/VPS API e Telegram."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.18",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Correção: build v1.21.17 estava incompleta",
+              "description": "A v1.21.17 foi publicada com uma mescla incompleta (faltava a maior parte da interface nova). Esta versão corrige isso — mesmas novidades listadas abaixo, agora completas."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.17",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "AgentUI: crie agentes conversacionais próprios",
+              "description": "Nova aba dedicada pra criar agentes com personalidade, modelo, canal (Telegram), fontes de conhecimento (RAG) e guardrails contra prompt injection. Gere o rascunho do agente a partir de uma descrição em linguagem natural, teste em um chat sandbox antes de publicar, e ative/desative sem perder a configuração."
+            },
+            {
+              "title": "Combos de modelo com failover",
+              "description": "Agrupe vários modelos num combo nomeado com failover e limite de taxa — selecionável em qualquer lugar que hoje aceita um modelo (chat, AgentUI, Batuta)."
+            },
+            {
+              "title": "Painel de KPIs e Estatísticas de Uso",
+              "description": "Novo painel na sidebar com tempo de trabalho por sessão, uso de tokens e outras métricas de uso do app."
+            },
+            {
+              "title": "Memória: consulta de entradas por projeto e global via API",
+              "description": "A API HTTP de memória agora expõe leitura separada das entradas de memória de projeto e globais, além de permitir adicionar notas e promover memórias diretamente."
+            },
+            {
+              "title": "Logo da OpenCode by Alltomatos",
+              "description": "A logo da marca substitui o wordmark genérico \"opencode\" na tela de nova sessão e na animação de carregamento do app."
+            },
+            {
+              "title": "Servidor remoto: fila de tarefas persistente (VPS)",
+              "description": "Implementação do backlog remoto do servidor pra manter tarefas pendentes entre reinícios ao operar via VPS."
+            },
+            {
+              "title": "Correções de estabilidade e acessibilidade",
+              "description": "Diversas correções: contraste no modo escuro, aria-labels faltando em botões só-ícone, sincronização da sidebar entre clientes conectados ao mesmo servidor, preservação de IDs de modelo Bedrock/DeepSeek, e maior robustez dos testes automatizados no CI do Windows."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.16",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Telegram: pedidos rodam em segundo plano, nunca mais travam o bot",
+              "description": "Antes, um comando/skill demorado (ex: um orquestrador rodando por minutos) travava o bot inteiro até terminar. Agora todo pedido que aciona o modelo roda como uma tarefa em segundo plano — se chegar outra mensagem enquanto uma ainda está rodando, o bot pergunta se é pra rodar em paralelo (sessão separada) ou esperar na fila (mesma conversa). Novo comando /model-subagent pra escolher um modelo diferente só pras tarefas em segundo plano."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.15",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Novo: conectar servidor remoto via túnel SSH ou Tailscale",
+              "description": "Em Configurações > Servidores > Adicionar servidor agora tem \"Adicionar túnel SSH\" (o app abre e mantém o túnel sozinho, com chave lida automaticamente de ~/.ssh) e \"Adicionar túnel Tailscale\" (detecta se o Tailscale está ativo e usa o IP da rede). Cada servidor na lista agora mostra o tipo de conexão (http, local, wsl, ssh) ao lado do nome."
+            },
+            {
+              "title": "Corrigido: instalação via CLI numa VPS não vinha com as skills padrão",
+              "description": "As skills base que o app desktop instala automaticamente nunca eram baixadas quando o opencode rodava só via CLI (`opencode serve`/`opencode web`) numa VPS. Agora o comportamento é o mesmo dos dois jeitos."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.14",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Novo: bot do Telegram pra conversar com o opencode remotamente",
+              "description": "Conecte um bot do Telegram nas Configurações > Integrações e converse com o opencode de qualquer lugar. Suporta foto, áudio/voz, troca de repositório e modelo (/repo, /model), skills customizadas, feedback de progresso durante execuções longas, e aprovação de permissões e perguntas de skills (ex.: /grill-me) direto pelos botões do chat."
+            },
+            {
+              "title": "Corrigido: agentrouter às vezes escolhia Claude Opus ou GPT como modelo padrão",
+              "description": "Esses modelos vinham dando mais problema (loops, lentidão) do que ajuda quando escolhidos automaticamente. Agora o agentrouter nunca os seleciona como padrão sozinho — continuam disponíveis pra escolha manual."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.13",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Corrigido: ferramentas customizadas travavam a resposta do agente",
+              "description": "Qualquer tool própria (ex.: das skills de engenharia) que importasse @opencode-ai/plugin quebrava silenciosamente ao ser chamada, matando a resposta do agente sem aviso nenhum. Causa: a instalação dessa dependência em segundo plano sempre falhava fora de builds locais. Corrigido."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.12",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Corrigido: MCP do OmniRoute não reconectava sozinho ao reiniciar o app",
+              "description": "O MCP do OmniRoute ficava \"conectado\" só até você reiniciar o app — depois disso, sumia e precisava reconectar o provedor manualmente pra voltar. Agora ele reconecta automaticamente na inicialização, junto com os outros servidores MCP configurados."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.11",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Novo provedor: AgentRouter",
+              "description": "Adicione sua chave da AgentRouter (agentrouter.org) em Configurações > Provedores e use direto — o app gerencia sozinho um pequeno relay local necessário pra contornar o bloqueio de conexão do provedor, sem nenhuma instalação manual. Mensagens em português são traduzidas automaticamente por baixo dos panos pra passar no filtro de conteúdo do provedor, mantendo as respostas em português."
+            },
+            {
+              "title": "Novo provedor nativo: OmniRoute",
+              "description": "Suporte nativo ao OmniRoute com descoberta dinâmica de modelos, direto no seletor de provedores."
+            },
+            {
+              "title": "OmniRoute: MCP configurado automaticamente ao conectar",
+              "description": "Corrigido o endereço usado para testar e conectar o servidor MCP do OmniRoute (estava montando a URL errada). Agora o card de conexão avisa que o MCP é configurado junto, automaticamente."
+            },
+            {
+              "title": "OmniRoute: editar conexão sem precisar desconectar",
+              "description": "Novo botão \"Editar\" no provedor OmniRoute conectado, para atualizar URL/chave direto — antes só dava pra desconectar e reconectar do zero."
+            },
+            {
+              "title": "Corrigido: combos do OmniRoute travavam o envio de mensagem",
+              "description": "Modelos descobertos dinamicamente pelo OmniRoute (como combos) apareciam no seletor mas davam erro de \"modelo não encontrado\" ao enviar uma mensagem. Corrigido."
+            },
+            {
+              "title": "Corrigido: pedido de permissão sumia sem aviso",
+              "description": "Quando o agente precisava acessar um diretório fora da sessão atual, o pedido de permissão podia ficar pendente sem nenhum aviso visível na tela, parecendo que o app tinha travado. Corrigido."
+            },
+            {
+              "title": "Detecção automática de CLIs de agente externos",
+              "description": "O app agora detecta CLIs de terceiros (Claude, Codex, etc.) instaladas no servidor conectado e oferece instalar a skill necessária pra elas reportarem progresso ao orquestrador Batuta."
+            },
+            {
+              "title": "Ferramenta de controle do computador (computer-use)",
+              "description": "Habilitada por padrão: mouse, teclado e captura de tela em nível de sistema operacional."
+            },
+            {
+              "title": "Grid como padrão em Configurações > Provedores, com indicadores de carregamento",
+              "description": "A tela de provedores agora abre em modo grade por padrão e mostra spinners claros ao conectar/desconectar um provedor."
+            },
+            {
+              "title": "Correções de estabilidade",
+              "description": "Cache de provedores conectados agora invalida corretamente ao conectar/desconectar; corrigidos falsos positivos de \"provedor conectado\"; correções de sincronização de sessão remota, fallback ao abrir uma sessão deletada, e reconexão SSE mais resiliente."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.10",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Corrigido: Omniroute não aparecia na tela de modelo",
+              "description": "Na tela de seleção de modelo, o cartão do Omniroute não estava aparecendo entre os provedores em destaque. Corrigido."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.9",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Tarefas em segundo plano",
+              "description": "Novo item no menu \"...\" da sessão: mostra as tarefas em segundo plano (subagentes) em execução e concluídas, com tempo decorrido e opção de cancelar."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.8",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Distinção entre 'pensando' e 'executando'",
+              "description": "Na linha do tempo da sessão, o indicador de status agora mostra 'Executando comandos...' enquanto uma ferramenta está rodando, em vez de ficar preso em 'Pensando...' o tempo todo."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.7",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Batuta oculto na produção",
+              "description": "O modo Batuta (orquestração multi-agente) ainda está em desenvolvimento ativo — a aba dele agora só aparece em builds de desenvolvimento, não mais na versão de produção."
+            },
+            {
+              "title": "Omniroute nos provedores em destaque",
+              "description": "Na tela de seleção de modelo, o cartão de GitHub Copilot foi substituído por Omniroute na lista de provedores em destaque."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.6",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Corrigido: ícone de DevTools invisível",
+              "description": "O ícone do Modo debug (Configurações > Avançado) existia e funcionava, mas ficava sem desenho visível na barra de título nova — corrigido. Também movido para ficar ao lado do ícone de Configurações, mais fácil de achar."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.5",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Corrigido: ícone de DevTools não aparecia ao ativar o Modo debug",
+              "description": "Na 1.21.4, ativar o Modo debug em Configurações não fazia o ícone de DevTools aparecer na barra de título — precisava recarregar/reabrir o app manualmente. Agora aparece na hora, sem precisar de nada extra."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.4",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Ícone de DevTools sempre acessível no Modo debug",
+              "description": "Com o Modo debug ativo (Configurações > Avançado), um ícone de DevTools passa a ficar fixo na barra de título, acessível em qualquer tela — não precisa mais abrir Configurações pra alcançá-lo, útil justamente quando o app está travado ou apresentando problemas."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.3",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Versão do app visível na barra lateral",
+              "description": "A versão instalada agora aparece embaixo de \"Ajuda\", facilitando saber qual build está rodando sem abrir Configurações."
+            },
+            {
+              "title": "Ferramentas de desenvolvedor em qualquer build",
+              "description": "Novo botão em Configurações > Avançado abre o DevTools do Chromium mesmo em builds de produção, para facilitar o diagnóstico de problemas."
+            },
+            {
+              "title": "Modo debug",
+              "description": "Nova opção em Configurações > Avançado habilita a porta de depuração remota mesmo em builds empacotados, útil para investigar problemas com ferramentas externas. Requer reiniciar o app."
+            },
+            {
+              "title": "Configurações reorganizadas",
+              "description": "\"Usar animações 3D\" foi movido para uma nova categoria Experimental; as novas opções de depuração foram agrupadas em Avançado."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.2",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Corrigido chat em branco após a primeira mensagem",
+              "description": "Sessões novas podiam ficar com a área de conversa completamente em branco assim que a primeira mensagem era enviada, mesmo com a resposta chegando normalmente no servidor. Corrigido um trecho da tela de sessão que não estava sendo renderizado."
+            },
+            {
+              "title": "Reconexão mais estável em conexões instáveis",
+              "description": "Quando a conexão com o servidor local oscilava, o app tentava reconectar imediatamente e sem limite, o que podia interromper repetidamente o carregamento do projeto e deixar a tela travada. Agora as tentativas usam um intervalo crescente até a conexão estabilizar."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.1",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Corrigida janela em branco ao abrir o app",
+              "description": "Em algumas configurações de monitor, a janela podia abrir completamente em branco até o primeiro clique. Corrigido no nível de renderização do Electron."
+            },
+            {
+              "title": "Detecção real de falha ao iniciar o servidor local",
+              "description": "Se o servidor local não conseguisse ficar saudável na inicialização, o app antes seguia em frente silenciosamente; agora mostra o erro corretamente em vez de travar sem explicação."
+            },
+            {
+              "title": "Build do instalador mais confiável",
+              "description": "Corrigido um problema em que gerar o instalador sem antes compilar o app podia produzir um pacote quebrado."
+            },
+            {
+              "title": "Atualizações do projeto original incorporadas",
+              "description": "Diversas correções de provedores, modelos e estabilidade vindas do projeto original (upstream) foram sincronizadas neste release."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.21.0",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "MCP: editar, remover e conectar via OAuth",
+              "description": "A tela de Configurações > MCP agora permite editar (env, headers, cwd, timeout) e remover servidores configurados, autenticar via OAuth direto na UI, ver as tools/prompts/resources de um servidor conectado, e adicionar servidores conhecidos (Cloudflare, Gmail, Mercado Pago, Context7, GitHub Copilot) com um clique. Também corrigido um bug onde servidores adicionados pela UI sumiam ao reiniciar o app."
+            },
+            {
+              "title": "Botão \"Config raw\" no MCP",
+              "description": "Abre o arquivo de configuração global (opencode.jsonc) direto no editor padrão do sistema, em qualquer plataforma."
+            },
+            {
+              "title": "Polish de UI/UX",
+              "description": "Ícones e destaque de risco em vários menus, migração de diálogos legados para o visual v2, e correção de um bug visual na barra de rolagem da lista de sessões."
+            },
+            {
+              "title": "Builds automáticos para macOS e Linux",
+              "description": "A partir de agora, promover uma versão para produção já builda e publica os instaladores de Windows, macOS e Linux automaticamente."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.20.16",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Dialog do Omniroute migrado pro visual novo",
+              "description": "Campos, botão e switch da tela \"Conectar Omniroute\" agora usam os componentes v2, consistentes com o resto do app."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.20.15",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Ícone certo no botão da sidebar de projetos",
+              "description": "O botão de recolher/expandir a sidebar de projetos usava um nome de ícone que não existe no set novo e caía num \"+\" por engano. Corrigido para o ícone correto, agora refletindo o estado aberto/fechado."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.20.14",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Modo Planejar realmente muda de agente agora",
+              "description": "Selecionar \"Planejar\" no menu de modos ficava sem efeito quando o seletor de agentes customizados estava escondido (o agente ativo sempre voltava para \"build\"). Corrigido."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.20.13",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Menu de modos redesenhado",
+              "description": "Cada modo agora tem um ícone próprio, o botão mostra o ícone do modo atual, e \"Ignorar permissões\" (o mais arriscado) ganhou destaque em amarelo e ficou separado dos modos da sessão."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.20.12",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Modo \"Planejar\" de volta no seletor",
+              "description": "O modo Planejar estava escondido no seletor de permissões (embaixo do composer) porque dependia do seletor de agentes customizados estar visível. Agora aparece sempre que o agente \"plan\" existir."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.20.11",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Botão amarelo removido da sidebar",
+              "description": "O botão de atualização no rodapé da sidebar de projetos foi removido — o toast de \"Atualização disponível\" já cobre isso."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.20.10",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Skills do Claude desativadas por padrão",
+              "description": "O toggle \"Enxergar skills do Claude\" agora vem desligado por padrão nas Configurações."
+            },
+            {
+              "title": "URL do Omniroute em branco por padrão",
+              "description": "O campo de URL ao conectar o Omniroute não vem mais preenchido com uma URL específica."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.20.9",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Item Marketplace removido das Configurações",
+              "description": "Retirado o item \"Marketplace\" do menu de Configurações."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.20.8",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Skills descobertas corrigidas",
+              "description": "A aba Configurações > Skill agora mostra as skills do projeto atual e globais, as mesmas disponíveis digitando \"/\" no chat — antes ficava sempre vazia por não usar o diretório certo."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.20.7",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Melhorias de acessibilidade",
+              "description": "Confirmação antes de remover um servidor, foco de teclado visível nas buscas de modelo/projeto e no chat, e rótulo correto no botão de limpar busca."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.20.6",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Importar apenas combos no Omniroute",
+              "description": "Nova opção ao conectar o Omniroute para trazer só os modelos combo, ignorando as entradas simples de provedor/modelo."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.20.5",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Skills padrão no local certo",
+              "description": "As skills de github.com/alltomatos/skills agora são instaladas em ~/.opencode/skills, a pasta nativa de skills do OpenCode (antes iam por engano para ~/.claude/skills)."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.20.4",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Botão de atualização na sidebar",
+              "description": "Quando há uma nova versão pronta, um botão amarelo aparece no rodapé da sidebar de projetos para instalar e reiniciar."
+            },
+            {
+              "title": "Skills padrão da Alltomatos",
+              "description": "Instalações novas já vêm com as skills de github.com/alltomatos/skills disponíveis em ~/.claude/skills."
+            },
+            {
+              "title": "Correção do aviso de novidades",
+              "description": "O changelog agora aponta para o nosso fork, então o pop-up de novidades volta a aparecer após uma atualização."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.20.3",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Aviso de atualização mais visível",
+              "description": "O aviso de nova versão disponível agora aparece também no layout novo, com botão para instalar e reiniciar."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.20.2",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Sidebar de Projetos persistente",
+              "description": "A lista de projetos agora fica sempre visível, dentro ou fora de uma sessão, e pode ser recolhida."
+            },
+            {
+              "title": "Terminal e Browser no cabeçalho",
+              "description": "Abra o terminal embutido e o painel de navegação direto pelo cabeçalho da sessão; quando os dois estão abertos, ficam empilhados um acima do outro."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.20.1",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "OpenCode by Alltomatos",
+              "description": "Novo nome e identidade do app, com atalho de Configurações direto na barra de título."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "tag": "v1.20.0",
+      "highlights": [
+        {
+          "source": "desktop",
+          "items": [
+            {
+              "title": "Atualização automática pelo fork",
+              "description": "O app agora verifica e instala atualizações a partir dos releases do nosso fork, não mais do projeto original."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
